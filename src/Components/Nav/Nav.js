@@ -4,6 +4,9 @@ import homeLogo from './../../assets/home_logo.png';
 import newLogo from './../../assets/new_logo.png';
 import logoutLogo from './../../assets/shut_down.png';
 import {Link, withRouter} from 'react-router-dom' 
+import {connect} from 'react-redux'
+import {updateUser} from './../../Redux/heloReducer' 
+import {logout} from './../../Redux/heloReducer' 
 import './Nav.css';
 
 class Nav extends Component {
@@ -16,6 +19,8 @@ class Nav extends Component {
 
   componentDidMount() {
     this.getUser()
+    // this.props.updateUser()
+    // this.props.logout()
   }
 
   getUser() {
@@ -29,6 +34,7 @@ class Nav extends Component {
   }
   
   render() {
+    console.log(this.props)
       return this.props.location.pathname !== '/' &&
         <div className='nav'>
           <div className='nav-profile-container'>
@@ -44,4 +50,11 @@ class Nav extends Component {
   }
 }
 
-export default withRouter(Nav);
+const mapStateToProps = (state) => {
+  return {
+    heloReducer: state.heloReducer
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {updateUser, logout})(Nav));
+
