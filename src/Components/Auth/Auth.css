@@ -25,6 +25,31 @@
     position: relative;
   }
 
+  @media screen and (max-width: 40em){
+    .auth-container{
+      width: 55vw;
+      height: 75vh;
+    }
+
+    
+    .auth-input-box > input {
+      height: 25px;
+      margin-left: 5px;
+      border: none;
+    }
+  }
+
+  @media screen and (max-width: 27em){
+    .auth-input-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 25px;
+      width: 10px
+    }
+
+  }
+
   .auth-title {
     font-size: 80px;
     font-weight: 700;
