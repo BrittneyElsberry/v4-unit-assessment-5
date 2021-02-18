@@ -27,8 +27,8 @@ module.exports = {
 
     login: async (req, res)=>{
         const {username, password} = req.body
-        dbInstance = req.app.get('db')
-        const foundUser = await req.app.get('db').find_user_by_username([username])
+        const db = req.app.get('db')
+        const foundUser = await db.user.find_user_by_username([username])
         const user = foundUser[0]
         if(!user){
             res.status(401).send('User not found. Please register as a new user before logging in')
@@ -41,9 +41,11 @@ module.exports = {
 
         req.session.user = {
             username: user.username,
-            id: user.id
+            id: user.id,
+            profilePic: user.pic
         }
         return res.send(req.session.user)
+      
     },
 
     logout: (req, res)=>{
@@ -51,12 +53,13 @@ module.exports = {
         return res.status(200)
     },
 
-    getUser: ()=>{
+    getUser: (req, res)=>{
         const {user} = req.session
+        const db = req.app.get('db')
         if(user){
-            return res.send(200).send({loggedIn: true, user})
+            return res.status(200).send(req.session.user)
         } else {
-            return res.send(404)
+            return res.status(404)
         }
     }
 

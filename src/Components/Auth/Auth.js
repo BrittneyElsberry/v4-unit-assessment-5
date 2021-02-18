@@ -28,7 +28,10 @@ class Auth extends Component {
     axios.post('/api/auth/login', this.state)
       .then(res => {
         //code here
-        // this.props.updateUser({})
+      const {username, profilePicture} = this.state
+      let user = {username, profilePicture}
+
+        this.props.updateUser({user})
         this.props.history.push('/dash') 
       })
       .catch(err => {
@@ -38,10 +41,15 @@ class Auth extends Component {
   }
 
   register() {
-    axios.post('/api/auth/register', this.state)
+    const {username, password, profilePicture} = this.state
+    let user = {username, password, profilePicture}
+
+    axios.post('/api/auth/register', {user})  
       .then(res => {
-       console.log(res.data)
+  
+        this.props.updateUser({user})
         this.props.history.push(`/dash`)
+
       
       })
       .catch(err => {
