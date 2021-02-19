@@ -42,12 +42,12 @@ class Auth extends Component {
 
   register() {
     const {username, password, profilePicture} = this.state
-    let user = {username, password, profilePicture}
+    // let user = {username, password, profilePicture}
 
-    axios.post('/api/auth/register', {user})  
+    axios.post('/api/auth/register', {username, password, profilePicture})  
       .then(res => {
   
-        this.props.updateUser({user})
+        this.props.updateUser(res.data)   //({user}) 
         this.props.history.push(`/dash`)
 
       

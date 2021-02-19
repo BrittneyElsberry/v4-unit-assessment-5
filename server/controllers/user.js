@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs')
 module.exports = {
 
     register: async (req, res)=> {
+
+        try{
         const {username, password}  = req.body
         const pic = `https://robohash.org/${username}.png`
         const db = req.app.get('db')
@@ -16,14 +18,21 @@ module.exports = {
         const hash = bcrypt.hashSync(password, salt)
         const registeredUser = await db.user.create_user([username, hash, pic])
         const user = registeredUser[0]
+      
         req.session.user = 
         {
             username: user.username,
             id: user.id,
             profilePic: user.pic 
         }
-        res.status(201).send(req.session.user)
+       return res.status(201).send(req.session.user)
+    //    delete user.password
+    }
+    catch(err){
+        console.log(err)
+    }
     },
+
 
     login: async (req, res)=>{
         const {username, password} = req.body
@@ -44,7 +53,8 @@ module.exports = {
             id: user.id,
             profilePic: user.pic
         }
-        return res.send(req.session.user)
+        delete user.password
+        return res.status(200).send(req.session.user)
       
     },
 
@@ -55,7 +65,7 @@ module.exports = {
 
     getUser: (req, res)=>{
         const {user} = req.session
-        const db = req.app.get('db')
+        // const db = req.app.get('db')
         if(user){
             return res.status(200).send(req.session.user)
         } else {
