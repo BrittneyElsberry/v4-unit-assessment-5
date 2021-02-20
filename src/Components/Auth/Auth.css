@@ -25,30 +25,6 @@
     position: relative;
   }
 
-  @media screen and (max-width: 40em){
-    .auth-container{
-      width: 55vw;
-      height: 75vh;
-    }
-
-    
-    .auth-input-box > input {
-      height: 25px;
-      margin-left: 5px;
-      border: none;
-    }
-  }
-
-  @media screen and (max-width: 27em){
-    .auth-input-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 25px;
-      width: 10px
-    }
-
-  }
 
   .auth-title {
     font-size: 80px;
@@ -95,4 +71,40 @@
     display: flex;
     justify-content: space-around;
     width: 55%;
+  }
+
+ 
+
+  @media screen and (min-width:27em) and (max-width: 40em){
+    .auth-container{
+      /* flex-shrink: 2.0; */
+      width: 55vw;
+      height: 75vh;
+    }
+
+    
+    .auth-input-box > input {
+    
+      height: 25px;
+      width: 75vw;
+      border: none;
+    }
+  }
+
+
+  @media screen and (max-width: 27em){
+    .auth-container{
+      flex-shrink: 2.0;
+      width: 55vw;
+      height: 75vh;
+    }
+
+    
+    .auth-input-box > input {
+    
+      height: 25px;
+      width: 30vw;
+      border: none;
+    }
+
   }
